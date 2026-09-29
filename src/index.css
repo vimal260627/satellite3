@@ -1,0 +1,155 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@layer base {
+  :root {
+    --bg-main: #F5F3EE;
+    --bg-surface: #FBF9F5;
+    --bg-surface-elevated: #FFFFFF;
+    --bg-sidebar: #EFECE6;
+    --border-subtle: #E2DFD6;
+    --border-strong: #CBC5B7;
+    --text-primary: #202322;
+    --text-secondary: #606462;
+    --text-muted: #8E928F;
+    --accent-sat: #D97706;
+    --accent-fiber: #7C3AED;
+    --accent-cell: #15803D;
+    --status-good: #15803D;
+    --status-mod: #D97706;
+    --status-poor: #EA580C;
+    --status-crit: #DC2626;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #EFECE6;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBC5B7;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A8A295;
+}
+
+/* Engineering GIS Map Overrides */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #E9E6DE !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Crisp geographic map tile presentation */
+.gis-tile-filter {
+  filter: contrast(102%) brightness(100%);
+}
+
+/* Crisp National Boundary styling */
+.india-national-border {
+  filter: drop-shadow(0 0 2px rgba(30, 41, 59, 0.4));
+}
+
+/* State boundary hover effect */
+.state-boundary-polygon:hover {
+  fill: rgba(217, 119, 6, 0.12) !important;
+  stroke: #D97706 !important;
+  stroke-width: 2px !important;
+}
+
+/* Remove Leaflet attribution link clutter for clean engineering view */
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  background: rgba(245, 243, 238, 0.85) !important;
+  color: #606462 !important;
+  border: 1px solid #CBC5B7 !important;
+  border-radius: 2px !important;
+  padding: 1px 4px !important;
+  margin: 4px !important;
+}
+
+/* Custom Popup Style */
+.leaflet-popup-content-wrapper {
+  background: #FFFFFF !important;
+  color: #202322 !important;
+  border: 1px solid #CBC5B7 !important;
+  border-radius: 3px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  padding: 0 !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-popup-tip {
+  background: #FFFFFF !important;
+  border: 1px solid #CBC5B7 !important;
+}
+
+/* Flowing dash animation for active network links */
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.network-flow-active {
+  stroke-dasharray: 6, 4;
+  animation: flowDash 1.2s linear infinite;
+}
+
+/* Pulsing satellite halo */
+@keyframes satPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+.satellite-pulse {
+  animation: satPulse 3s ease-in-out infinite;
+}
+
+/* Subtle blinking indicator for live status */
+@keyframes statusBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.status-beacon {
+  animation: statusBlink 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
